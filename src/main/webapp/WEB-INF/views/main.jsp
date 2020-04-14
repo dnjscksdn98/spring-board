@@ -7,6 +7,7 @@
 		<title>Home</title>
 	</head>
 	<body>
+		<%@ include file="./include/nav.jsp" %>
 		<h2>${msg}</h2>
 	</body>
 </html>
