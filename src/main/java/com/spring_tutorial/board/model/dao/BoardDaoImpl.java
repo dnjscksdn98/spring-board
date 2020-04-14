@@ -2,8 +2,6 @@ package com.spring_tutorial.board.model.dao;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
