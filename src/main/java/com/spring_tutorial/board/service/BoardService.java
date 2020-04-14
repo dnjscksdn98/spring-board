@@ -5,7 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.spring_tutorial.board.model.dto.BoardDto;
-import com.spring_tutorial.board.model.dao.BoardDao;
+
 
 public interface BoardService {
 	

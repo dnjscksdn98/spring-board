@@ -1,25 +1,24 @@
-package com.spring_tutorial.board.service;
+package com.spring_tutorial.board.model.dao;
 
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spring_tutorial.board.model.dto.BoardDto;
-import com.spring_tutorial.board.model.dao.BoardDaoImpl;
 
-
-@Service
-public class BoardServiceImpl implements BoardService {
+@Repository
+public class BoardDaoImpl implements BoardDao {
 	
 	@Autowired
-	BoardDaoImpl boardDao;
+	SqlSession sqlSession;
 	
 	@Override
 	public List<BoardDto> listAll() throws Exception {
-		return boardDao.listAll();
+		return sqlSession.selectList("board.listAll");
 	}
 	
 	@Override
@@ -43,8 +42,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public void increaseViews(int boardId, HttpSession session) throws Exception {
+	public void increaseViews(int boardId) throws Exception {
 		
 	}
-	
 }
