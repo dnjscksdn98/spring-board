@@ -6,6 +6,13 @@
 		<meta charset="UTF-8">
 		<title>게시글 목록</title>
 		<%@ include file="../include/header.jsp" %>
+		<script>
+			$(document).ready(function() {
+				$("#btnWrite").click(function() {
+					location.href = "${path}/board/write.do";
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<%@ include file="../include/nav.jsp" %>
