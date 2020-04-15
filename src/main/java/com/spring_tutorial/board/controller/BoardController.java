@@ -22,6 +22,7 @@ public class BoardController {
 	@Autowired
 	BoardServiceImpl boardService;
 	
+	// board list page
 	@RequestMapping("list.do")
 	public ModelAndView list() throws Exception {
 		List<BoardDto> list = boardService.listAll();
@@ -31,5 +32,11 @@ public class BoardController {
 		mav.addObject("list", list);
 		
 		return mav;
+	}
+	
+	// board write page
+	@RequestMapping(value="write.do", method=RequestMethod.GET)
+	public String write() {
+		return "board/write";
 	}
 }
