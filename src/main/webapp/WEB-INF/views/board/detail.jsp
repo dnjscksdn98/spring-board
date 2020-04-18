@@ -15,6 +15,10 @@
 			<fmt:formatDate value="${dto.getRegDate()}" pattern="yyyy-MM-dd HH:mm:ss" />
 		</div>
 		<div>
+			조회수 :
+			${dto.getViews()}
+		</div>
+		<div>
 			작성자 : 
 			${dto.getWriter()}
 		</div>

@@ -43,5 +43,16 @@
 		FROM board
 		WHERE board_id = #{boardId}
 	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="update">
+		UPDATE board
+		SET
+			title = #{title},
+			content = #{content},
+			writer = #{writer}
+		WHERE
+			board_id = #{boardId}
+	</update>
 
 </mapper>
