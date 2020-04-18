@@ -26,7 +26,7 @@
 			내용 :
 			${dto.getContent()}
 		</div>
-		<button type="button" id="btnUpdate">수정</button>
+		<a href="${path}/board/update_view.do?boardId=${dto.getBoardId()}">수정</a>
 		<button type="button" id="btnDelete">삭제</button>
 	</body>
 </html>
