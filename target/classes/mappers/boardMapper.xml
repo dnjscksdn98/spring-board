@@ -20,5 +20,21 @@
 			board_id desc,
 			regdate desc
 	</select>
+	
+	<!-- 게시글 작성 -->
+	<insert id="create">
+		INSERT INTO (
+			board_id,
+			title,
+			content,
+			writer
+		)
+		VALUES (
+			(SELECT NVL(MAX(board_id) + 1, 1) FROM board),
+			#{title},
+			#{content},
+			#{writer}
+		)
+	</insert>
 
 </mapper>
