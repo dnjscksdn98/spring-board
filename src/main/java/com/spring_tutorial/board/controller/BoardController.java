@@ -47,7 +47,7 @@ public class BoardController {
 		return "redirect:list.do";
 	}
 	
-	// board detail view
+	// board detail page
 	@RequestMapping(value="detail.do", method=RequestMethod.GET)
 	public ModelAndView detail(@RequestParam int boardId, HttpSession session) throws Exception {
 		// boardService.increaseViews(boardId, session);
@@ -58,4 +58,17 @@ public class BoardController {
 		
 		return mav;
 	}
+	
+	// board update request
+	@RequestMapping(value="update.do", method=RequestMethod.POST)
+	public ModelAndView update(@ModelAttribute BoardDto dto) throws Exception {
+		boardService.update(dto);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("board/detail");
+		mav.addObject("dto", dto);
+		
+		return mav;
+	}
+	
 }
