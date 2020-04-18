@@ -40,6 +40,17 @@ public class BoardController {
 		return "board/write";
 	}
 	
+	// board update page
+	@RequestMapping(value="update_view.do", method=RequestMethod.GET)
+	public ModelAndView updateView(@RequestParam int boardId) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("board/write");
+		mav.addObject("dto", boardService.detail(boardId));
+		
+		return mav;
+	}
+	
 	// board write request
 	@RequestMapping(value="insert.do", method=RequestMethod.POST)
 	public String create(@ModelAttribute BoardDto dto) throws Exception {

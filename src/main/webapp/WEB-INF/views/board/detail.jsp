@@ -19,7 +19,7 @@
 			${dto.getViews()}
 		</div>
 		<div>
-			작성자 : 
+			작성자 :
 			${dto.getWriter()}
 		</div>
 		<div>
