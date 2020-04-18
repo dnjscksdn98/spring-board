@@ -14,6 +14,12 @@ public class BoardDto {
 		
 	}
 	
+	public BoardDto(String title, String content, String writer) {
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+	}
+	
 	public BoardDto(int boardId, String title, String content, String writer, Date regDate, int views) {
 		this.boardId = boardId;
 		this.title = title;

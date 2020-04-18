@@ -23,7 +23,7 @@
 	
 	<!-- 게시글 작성 -->
 	<insert id="create">
-		INSERT INTO (
+		INSERT INTO board (
 			board_id,
 			title,
 			content,
