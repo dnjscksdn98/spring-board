@@ -36,7 +36,7 @@ public class BoardDaoImpl implements BoardDao {
 	
 	@Override
 	public void delete(int boardId) throws Exception {
-		
+		sqlSession.delete("board.delete", boardId);
 	}
 	
 	@Override

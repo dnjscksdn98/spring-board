@@ -39,7 +39,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public void delete(int boardId) throws Exception {
-		
+		boardDao.delete(boardId);
 	}
 	
 	@Override

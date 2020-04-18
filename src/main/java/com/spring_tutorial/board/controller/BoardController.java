@@ -82,4 +82,11 @@ public class BoardController {
 		return mav;
 	}
 	
+	// board delete request
+	@RequestMapping(value="delete.do")
+	public String delete(@RequestParam int boardId) throws Exception {
+		boardService.delete(boardId);
+		return "redirect:list.do";
+	}
+	
 }
