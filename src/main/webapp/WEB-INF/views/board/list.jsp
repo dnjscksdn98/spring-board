@@ -29,7 +29,9 @@
 			<c:forEach var="row" items="${list}">
 			<tr>
 				<td>${row.getBoardId()}</td>
-				<td>${row.getTitle()}</td>
+				<td>
+					<a href="${path}/board/detail.do?boardId=${row.getBoardId()}">${row.getTitle()}</a>
+				</td>
 				<td>${row.getWriter()}</td>
 				<td>
 					<fmt:formatDate value="${row.getRegDate()}" pattern="yyyy-MM-dd HH:mm:ss" />
