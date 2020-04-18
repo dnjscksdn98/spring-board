@@ -39,7 +39,13 @@
 	
 	<!-- 게시글 상세 페이지 -->
 	<select id="detail" resultType="com.spring_tutorial.board.model.dto.BoardDto" >
-		SELECT *
+		SELECT 
+			board_id AS boardId,
+			title,
+			content,
+			writer,
+			regdate AS regDate,
+			views
 		FROM board
 		WHERE board_id = #{boardId}
 	</select>

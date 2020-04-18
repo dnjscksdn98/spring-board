@@ -45,7 +45,7 @@ public class BoardController {
 	public ModelAndView updateView(@RequestParam int boardId) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
-		mav.setViewName("board/write");
+		mav.setViewName("board/update");
 		mav.addObject("dto", boardService.detail(boardId));
 		
 		return mav;
@@ -77,7 +77,7 @@ public class BoardController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("board/detail");
-		mav.addObject("dto", dto);
+		mav.addObject("dto", boardService.detail(dto.getBoardId()));
 		
 		return mav;
 	}
