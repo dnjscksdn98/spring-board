@@ -50,10 +50,12 @@ public class BoardController {
 	// board detail view
 	@RequestMapping(value="detail.do", method=RequestMethod.GET)
 	public ModelAndView detail(@RequestParam int boardId, HttpSession session) throws Exception {
-		boardService.increaseViews(boardId, session);
+		// boardService.increaseViews(boardId, session);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("board/detail");
 		mav.addObject("dto", boardService.detail(boardId));
+		
 		return mav;
 	}
 }

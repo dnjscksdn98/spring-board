@@ -29,7 +29,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public BoardDto detail(int boardId) throws Exception {
-		return null;
+		return boardDao.detail(boardId);
 	}
 	
 	@Override

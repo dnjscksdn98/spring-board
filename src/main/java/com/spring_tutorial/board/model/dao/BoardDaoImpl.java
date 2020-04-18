@@ -26,7 +26,7 @@ public class BoardDaoImpl implements BoardDao {
 	
 	@Override
 	public BoardDto detail(int boardId) throws Exception {
-		return null;
+		return sqlSession.selectOne("board.detail", boardId);
 	}
 	
 	@Override
