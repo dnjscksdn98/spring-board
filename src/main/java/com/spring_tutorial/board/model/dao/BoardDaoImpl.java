@@ -31,7 +31,7 @@ public class BoardDaoImpl implements BoardDao {
 	
 	@Override
 	public void update(BoardDto dto) throws Exception {
-		
+		sqlSession.update("board.update", dto);
 	}
 	
 	@Override

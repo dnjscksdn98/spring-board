@@ -34,7 +34,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public void update(BoardDto dto) throws Exception {
-		
+		boardDao.update(dto);
 	}
 	
 	@Override
