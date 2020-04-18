@@ -6,13 +6,38 @@
 		<meta charset="UTF-8">
 		<title>게시글 작성 페이지</title>
 		<%@ include file="../include/header.jsp" %>
+		<script>
+			$(document).ready(function() {
+				$("#btnSave").click(function() {
+					const title = $("#title").val();
+					const content = $("#content").val();
+					const writer = $("#writer").val();
+					
+					if(title === "") {
+						alert("제목을 입력하십시오.");
+						document.write_form.title.focus();
+						return;
+					}
+					if(content === "") {
+						alert("내용을 입력하십시오.");
+						document.write_form.content.focus();
+						return;
+					}
+					if(writer === "") {
+						alert("작성자 이름을 입력하십시오.");
+						document.write_form.writer.focus();
+						return;
+					}
+					document.write_form.submit();
+				})
+			})
+		</script>
 	</head>
 	<body>
 		<%@ include file="../include/nav.jsp" %>
 		<h2>게시글 작성</h2>
 		
-		<!-- 액션 추가 -->
-		<form name="write_form" method="post">
+		<form name="write_form" method="post" action="${path}/board/insert.do">
 			<div>
 				제목
 				<input name="title" id="title" size="100" placeholder="제목을 입력하십시오" />

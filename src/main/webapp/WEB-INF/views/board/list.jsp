@@ -29,9 +29,11 @@
 			<c:forEach var="row" items="${list}">
 			<tr>
 				<td>${row.getBoardId()}</td>
-				<td>${row.getTitel()}</td>
+				<td>${row.getTitle()}</td>
 				<td>${row.getWriter()}</td>
-				<td>${row.getRegDate()}</td>
+				<td>
+					<fmt:formatDate value="${row.getRegDate()}" pattern="yyyy-MM-dd HH:mm:ss" />
+				</td>
 				<td>${row.getViews()}</td>
 			</tr>
 			</c:forEach>
