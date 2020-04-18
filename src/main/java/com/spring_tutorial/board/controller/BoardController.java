@@ -39,4 +39,11 @@ public class BoardController {
 	public String write() {
 		return "board/write";
 	}
+	
+	// board write request
+	@RequestMapping(value="insert.do", method=RequestMethod.POST)
+	public String create(@ModelAttribute BoardDto dto) throws Exception {
+		boardService.create(dto);
+		return "redirect:list.do";
+	}
 }
