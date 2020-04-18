@@ -36,5 +36,12 @@
 			#{writer}
 		)
 	</insert>
+	
+	<!-- 게시글 상세 페이지 -->
+	<select id="detail" resultType="com.spring_tutorial.board.model.dto.BoardDto" >
+		SELECT *
+		FROM board
+		WHERE board_id = #{boardId}
+	</select>
 
 </mapper>
