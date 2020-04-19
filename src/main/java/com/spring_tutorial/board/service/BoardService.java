@@ -9,7 +9,9 @@ import com.spring_tutorial.board.model.dto.BoardDto;
 
 public interface BoardService {
 	
-	public List<BoardDto> listAll() throws Exception;
+	public List<BoardDto> listAll(String searchOption, String keyword) throws Exception;
+	
+	public int countArticle(String searchOption, String keyword) throws Exception;
 	
 	public void create(BoardDto dto) throws Exception;
 	

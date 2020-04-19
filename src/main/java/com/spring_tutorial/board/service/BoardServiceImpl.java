@@ -18,8 +18,13 @@ public class BoardServiceImpl implements BoardService {
 	BoardDaoImpl boardDao;
 	
 	@Override
-	public List<BoardDto> listAll() throws Exception {
-		return boardDao.listAll();
+	public List<BoardDto> listAll(String searchOption, String keyword) throws Exception {
+		return boardDao.listAll(searchOption, keyword);
+	}
+	
+	@Override
+	public int countArticle(String searchOption, String keyword) throws Exception {
+		return boardDao.countArticle(searchOption, keyword);
 	}
 	
 	@Override

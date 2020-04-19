@@ -1,6 +1,8 @@
 package com.spring_tutorial.board.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,12 +26,20 @@ public class BoardController {
 	
 	// board list page
 	@RequestMapping("list.do")
-	public ModelAndView list() throws Exception {
-		List<BoardDto> list = boardService.listAll();
+	public ModelAndView list(@RequestParam(defaultValue="title") String searchOption,
+							@RequestParam(defaultValue="") String keyword) throws Exception {
+		
+		List<BoardDto> list = boardService.listAll(searchOption, keyword);
+		int count = boardService.countArticle(searchOption, keyword);
 		
 		ModelAndView mav = new ModelAndView();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("count", count);
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		mav.addObject("map", map);
 		mav.setViewName("board/list");
-		mav.addObject("list", list);
 		
 		return mav;
 	}

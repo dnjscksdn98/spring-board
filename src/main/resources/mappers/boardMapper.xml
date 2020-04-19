@@ -16,10 +16,35 @@
 			views
 		FROM
 			board
+		<include refid="search"></include>
 		ORDER BY
 			board_id desc,
 			regdate desc
 	</select>
+	
+	<!-- 게시글 레코드 개수 -->
+	<select id="countArticle" resultType="int">
+		SELECT COUNT(*)
+		FROM board
+		<include refid="search"></include>
+	</select>
+	
+	<!-- sql code 조각 : 반복되는 sql의 일부를 sql 태그를 이용하여 분리-->
+	<sql id="search">
+		<choose>
+			<!-- 검색 옵션이 전체 검색일 경우 -->
+			<when test="searchOption == 'all'">
+				WHERE writer like '%'||#{keyword}||'%'
+				OR content like '%'||#{keyword}||'%'
+				OR title like '%'||#{keyword}||'%'
+			</when>
+			
+			<!-- 전체 검색이 아닐 경우 -->
+			<otherwise>
+				WHERE ${searchOption} like '%'||#{keyword}||'%'
+			</otherwise>
+		</choose>
+	</sql>
 	
 	<!-- 게시글 작성 -->
 	<insert id="create">

@@ -17,7 +17,22 @@
 	<body>
 		<%@ include file="../include/nav.jsp" %>
 		<h2>게시글 목록</h2>
-		<button type="button" id="btnWrite">글쓰기</button>
+		
+		<form name="search_form" method="post" action="${path}/board/list.do">
+			<select name="searchOption">
+				<option value="all" <c:out value="${map.searchOption == 'all' ? 'selected' : ''}" /> >제목+이름+내용</option>
+				<option value="writer" <c:out value="${map.searchOption == 'writer' ? 'selected' : ''}" /> >이름</option>
+				<option value="content" <c:out value="${map.searchOption == 'content' ? 'selected' : ''}" /> >내용</option>
+				<option value="title" <c:out value="${map.searchOption == 'title' ? 'selected' : ''}" /> >제목</option>
+			</select>
+			<input name="keyword" value="${map.keyword}" />
+			<input type="submit" value="조회" />
+			<button type="button" id="btnWrite">글쓰기</button>
+		</form>
+		
+		<!-- 레코드 개수 출력 -->
+		${map.count}개의 게시물이 있습니다
+		
 		<table border="1" style="width: 600px">
 			<tr>
 				<th>#</th>
@@ -26,7 +41,7 @@
 				<th>작성일</th>
 				<th>조회수</th>
 			</tr>
-			<c:forEach var="row" items="${list}">
+			<c:forEach var="row" items="${map.list}">
 			<tr>
 				<td>${row.getBoardId()}</td>
 				<td>

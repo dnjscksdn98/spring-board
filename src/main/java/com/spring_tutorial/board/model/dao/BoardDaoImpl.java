@@ -1,6 +1,8 @@
 package com.spring_tutorial.board.model.dao;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -15,8 +17,19 @@ public class BoardDaoImpl implements BoardDao {
 	SqlSession sqlSession;
 	
 	@Override
-	public List<BoardDto> listAll() throws Exception {
-		return sqlSession.selectList("board.listAll");
+	public List<BoardDto> listAll(String searchOption, String keyword) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		return sqlSession.selectList("board.listAll", map);
+	}
+	
+	@Override
+	public int countArticle(String searchOption, String keyword) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		return sqlSession.selectOne("board.countArticle", map);
 	}
 	
 	@Override
