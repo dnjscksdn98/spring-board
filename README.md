@@ -33,6 +33,19 @@
   );
   </code>
   </pre>
+  
+  <pre>
+  <code>
+  create table member(
+    user_id varchar2(20) not null primary key,
+    user_pw varchar2(20) not null,
+    user_name varchar2(30) not null,
+    user_email varchar2(30) not null,
+    user_regdate date default sysdate,
+    user_updatedate date default sysdate
+  );
+  </code>
+  </pre>
 
 ### 기능
 
