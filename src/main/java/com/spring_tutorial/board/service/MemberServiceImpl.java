@@ -15,8 +15,8 @@ public class MemberServiceImpl implements MemberService {
 	MemberDaoImpl memberDao;
 	
 	@Override
-	public boolean loginCheck(MemberDto dto, HttpSession session) {
-		boolean result = memberDao.loginCheck(dto);
+	public boolean memberCheck(MemberDto dto, HttpSession session) {
+		boolean result = memberDao.memberCheck(dto);
 		
 		if(result) {
 			MemberDto dto2 = viewMember(dto);
@@ -35,5 +35,20 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void logout(HttpSession session) {
 		session.invalidate();
+	}
+	
+	@Override
+	public void signup(MemberDto dto) {
+		memberDao.signup(dto);
+	}
+	
+	@Override
+	public boolean pwCheck(String userPw, String confirmPw) {
+		return (userPw.contentEquals(confirmPw)) ? true : false;
+	}
+	
+	@Override
+	public boolean idCheck(MemberDto dto) {
+		return memberDao.idCheck(dto);
 	}
 }

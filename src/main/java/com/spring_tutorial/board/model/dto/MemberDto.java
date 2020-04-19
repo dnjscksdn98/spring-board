@@ -19,13 +19,11 @@ public class MemberDto {
 		this.userPw = userPw;
 	}
 
-	public MemberDto(String userId, String userPw, String userName, String userEmail, Date userRegDate, Date userUpdateDate) {
+	public MemberDto(String userId, String userPw, String userName, String userEmail) {
 		this.userId = userId;
 		this.userPw = userPw;
 		this.userName = userName;
 		this.userEmail = userEmail;
-		this.userRegDate = userRegDate;
-		this.userUpdateDate = userUpdateDate;
 	}
 
 	public String getUserId() {

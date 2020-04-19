@@ -10,6 +10,7 @@
 <c:choose>
 	<c:when test="${sessionScope.userId == null}">
 		<a href="${path}/member/login.do">로그인</a>
+		<a href="${path}/member/signup.do">회원가입</a>
 	</c:when>
 	<c:otherwise>
 		${sessionScope.userName}님이 로그인중입니다

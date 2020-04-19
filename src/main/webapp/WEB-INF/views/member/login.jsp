@@ -31,6 +31,11 @@
 	<body>
 		<%@ include file="../include/nav.jsp" %>
 		<h2>로그인</h2>
+		<c:if test="${msg == 'signupSuccess'}">
+			<div style="color: blue;">
+				성공적으로 가입하셨습니다. 로그인을 하십시오.
+			</div>
+		</c:if>
 		<form name="login_form" method="post">
 			<label for="userId">아이디</label>
 			<input name="userId" id="userId" />
@@ -41,7 +46,7 @@
 			<br />
 			
 			<button type="button" id="btnLogin">로그인</button>
-			<c:if test="${msg == 'failure'}">
+			<c:if test="${msg == 'loginFailure'}">
 				<div style="color: red;">
 					아이디 또는 비밀번호가 일치하지 않습니다
 				</div>

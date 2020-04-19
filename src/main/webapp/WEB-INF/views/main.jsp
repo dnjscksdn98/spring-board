@@ -10,8 +10,8 @@
 	<body>
 		<%@ include file="./include/nav.jsp" %>
 		<h2>홈페이지</h2>
-		<c:if test="${msg == 'success'}">
-			<h3>${sessionScope.userName}(${sessionScope.userId})님 환영합니다.</h2>
+		<c:if test="${msg == 'loginSuccess'}">
+			<h3>${sessionScope.userName}(${sessionScope.userId})님 환영합니다.</h3>
 		</c:if>
 	</body>
 </html>

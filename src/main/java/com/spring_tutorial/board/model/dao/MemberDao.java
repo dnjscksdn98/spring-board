@@ -4,7 +4,11 @@ import com.spring_tutorial.board.model.dto.MemberDto;
 
 public interface MemberDao {
 	
-	public boolean loginCheck(MemberDto dto);
+	public boolean memberCheck(MemberDto dto);
 	
 	public MemberDto viewMember(MemberDto dto);
+	
+	public void signup(MemberDto dto);
+	
+	public boolean idCheck(MemberDto dto);
 }

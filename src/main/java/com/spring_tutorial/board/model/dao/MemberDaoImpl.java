@@ -13,13 +13,24 @@ public class MemberDaoImpl implements MemberDao {
 	SqlSession sqlSession;
 	
 	@Override
-	public boolean loginCheck(MemberDto dto) {
-		String name = sqlSession.selectOne("member.loginCheck", dto);
+	public boolean memberCheck(MemberDto dto) {
+		String name = sqlSession.selectOne("member.memberCheck", dto);
 		return (name == null) ? false : true;
 	}
 	
 	@Override
 	public MemberDto viewMember(MemberDto dto) {
 		return sqlSession.selectOne("member.viewMember", dto);
+	}
+	
+	@Override
+	public void signup(MemberDto dto) {
+		sqlSession.insert("member.signup", dto);
+	}
+	
+	@Override
+	public boolean idCheck(MemberDto dto) {
+		String name = sqlSession.selectOne("member.memberCheck", dto);
+		return (name == null) ? false : true;
 	}
 }
