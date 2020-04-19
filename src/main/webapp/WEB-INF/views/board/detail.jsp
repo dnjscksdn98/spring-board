@@ -41,7 +41,9 @@
 			내용 :
 			${dto.getContent()}
 		</div>
-		<button id="btnUpdate">수정</button>
-		<button id="btnDelete">삭제</button>
+		<c:if test="${sessionScope.userId == dto.getWriter()}">
+			<button id="btnUpdate">수정</button>
+			<button id="btnDelete">삭제</button>
+		</c:if>
 	</body>
 </html>

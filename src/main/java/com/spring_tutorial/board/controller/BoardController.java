@@ -63,7 +63,9 @@ public class BoardController {
 	
 	// board write request
 	@RequestMapping(value="insert.do", method=RequestMethod.POST)
-	public String create(@ModelAttribute BoardDto dto) throws Exception {
+	public String create(@ModelAttribute BoardDto dto, HttpSession session) throws Exception {
+		String writer = (String)session.getAttribute("userId");
+		dto.setWriter(writer);
 		boardService.create(dto);
 		return "redirect:list.do";
 	}

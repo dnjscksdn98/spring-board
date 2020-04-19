@@ -27,7 +27,9 @@
 			</select>
 			<input name="keyword" value="${map.keyword}" />
 			<input type="submit" value="조회" />
-			<button type="button" id="btnWrite">글쓰기</button>
+			<c:if test="${sessionScope.userId != null}">
+				<button type="button" id="btnWrite">글쓰기</button>
+			</c:if>
 		</form>
 		
 		<!-- 레코드 개수 출력 -->

@@ -6,12 +6,12 @@
 		<meta charset="UTF-8">
 		<title>게시글 업데이트</title>
 		<%@ include file="../include/header.jsp" %>
+		<%@ include file="../include/sessionCheck.jsp" %>
 		<script>
 			$(document).ready(function() {
 				$("#btnUpdate").click(function() {
 					const title = $("#title").val();
 					const content = $("#content").val();
-					const writer = $("#writer").val();
 					
 					if(title === "") {
 						alert("제목을 입력하십시오.");
@@ -21,11 +21,6 @@
 					if(content === "") {
 						alert("내용을 입력하십시오.");
 						document.write_form.content.focus();
-						return;
-					}
-					if(writer === "") {
-						alert("작성자 이름을 입력하십시오.");
-						document.write_form.writer.focus();
 						return;
 					}
 					document.update_form.submit();
@@ -47,8 +42,7 @@
 				<textarea name="content" id="content" rows="5" cols="100">${dto.getContent()}</textarea> 
 			</div>
 			<div>
-				작성자 :
-				<input name="writer" id="writer" value="${dto.getWriter()}" />
+				작성자 : ${dto.getWriter()}
 			</div>
 			<div style="width: 650px; text-align: center;">
 				<button type="button" id="btnUpdate">확인</button>
