@@ -13,6 +13,11 @@ public class MemberDto {
 	public MemberDto() {
 		
 	}
+	
+	public MemberDto(String userId, String userPw) {
+		this.userId = userId;
+		this.userPw = userPw;
+	}
 
 	public MemberDto(String userId, String userPw, String userName, String userEmail, Date userRegDate, Date userUpdateDate) {
 		this.userId = userId;

@@ -1,7 +1,5 @@
 package com.spring_tutorial.board.model.dao;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +21,5 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public MemberDto viewMember(MemberDto dto) {
 		return sqlSession.selectOne("member.viewMember", dto);
-	}
-	
-	@Override
-	public void logout(HttpSession session) {
-		
 	}
 }

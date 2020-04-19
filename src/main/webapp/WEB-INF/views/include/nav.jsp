@@ -7,7 +7,15 @@
 <!-- context path -->
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<div style="text-align: center;">
-	<a href="${path}/board/list.do">게시글</a>
-</div>
+<c:choose>
+	<c:when test="${sessionScope.userId == null}">
+		<a href="${path}/member/login.do">로그인</a>
+	</c:when>
+	<c:otherwise>
+		${sessionScope.userName}님이 로그인중입니다
+		<a href="${path}/member/logout.do">로그아웃</a>
+	</c:otherwise>
+</c:choose>
+<a href="${path}/board/list.do">게시글</a>
+
 <hr />

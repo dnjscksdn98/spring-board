@@ -11,14 +11,14 @@
 		WHERE user_id = #{userId} AND user_pw = #{userPw}
 	</select>
 	
-	<select id="viewMember" resultType="com.spring_tutorial.board.model.dto.BoardDto">
+	<select id="viewMember" resultType="com.spring_tutorial.board.model.dto.MemberDto">
 		SELECT 
 			user_id AS userId,
 			user_name AS userName,
 			user_email AS userEmail,
 			user_regdate AS userRegDate
 		FROM member
-		WHERE user_id = #{user_id} AND user_pw = #{userPw}
+		WHERE user_id = #{userId} AND user_pw = #{userPw}
 	</select>
 
 </mapper>
