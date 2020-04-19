@@ -29,4 +29,10 @@
 	<!-- Board Dao bean 생성 -->
 	<beans:bean id="boardDao" class="com.spring_tutorial.board.model.dao.BoardDaoImpl" />
 	
+	<!-- Board Service bean 생성 -->
+	<beans:bean id="memberService" class="com.spring_tutorial.board.service.MemberServiceImpl" />
+	
+	<!-- Board Dao bean 생성 -->
+	<beans:bean id="memberDao" class="com.spring_tutorial.board.model.dao.MemberDaoImpl" />
+	
 </beans:beans>

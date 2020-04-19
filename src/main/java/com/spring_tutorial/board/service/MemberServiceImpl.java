@@ -16,12 +16,20 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public boolean loginCheck(MemberDto dto, HttpSession session) {
-		return false;
+		boolean result = memberDao.loginCheck(dto);
+		
+		if(result) {
+			MemberDto dto2 = viewMember(dto);
+			
+			session.setAttribute("userId", dto2.getUserId());
+			session.setAttribute("userName", dto2.getUserName());
+		}
+		return result;
 	}
 	
 	@Override
 	public MemberDto viewMember(MemberDto dto) {
-		return null;
+		return memberDao.viewMember(dto);
 	}
 	
 	@Override

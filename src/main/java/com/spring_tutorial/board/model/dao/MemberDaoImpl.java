@@ -16,12 +16,13 @@ public class MemberDaoImpl implements MemberDao {
 	
 	@Override
 	public boolean loginCheck(MemberDto dto) {
-		return false;
+		String name = sqlSession.selectOne("member.loginCheck", dto);
+		return (name == null) ? false : true;
 	}
 	
 	@Override
 	public MemberDto viewMember(MemberDto dto) {
-		return null;
+		return sqlSession.selectOne("member.viewMember", dto);
 	}
 	
 	@Override
