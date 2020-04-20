@@ -22,6 +22,7 @@
 
 - 테이블
   
+  - 게시글
   <pre>
   <code>
   create table board(
@@ -35,6 +36,7 @@
   </code>
   </pre>
   
+  - 회원
   <pre>
   <code>
   create table member(
@@ -44,6 +46,16 @@
     user_email varchar2(30) not null,
     user_regdate date default sysdate,
     user_updatedate date default sysdate
+  );
+  </code>
+  </pre>
+  
+  - 게시글 조회수
+  <pre>
+  <code>
+  create table board_views (
+    board_id number not null,
+    user_name varchar2(30) not null
   );
   </code>
   </pre>
