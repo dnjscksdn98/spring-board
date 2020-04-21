@@ -7,19 +7,24 @@
 	
 	<!-- 게시글 전체 목록 조회 -->
 	<select id="listAll" resultType="com.spring_tutorial.board.model.dto.BoardDto">
-		SELECT
-			board_id AS boardId,
-			title,
-			content,
-			writer,
-			regdate AS regDate,
-			views
-		FROM
-			board
-		<include refid="search"></include>
-		ORDER BY
-			board_id desc,
-			regdate desc
+		SELECT * FROM (	
+			SELECT ROWNUM AS rn, A.* FROM (
+				SELECT
+					rownum,
+					board_id AS boardId,
+					title,
+					content,
+					writer,
+					regdate AS regDate,
+					views
+				FROM
+					board
+				<include refid="search"></include>
+				ORDER BY
+					board_id desc,
+					regdate desc
+			) A
+		) WHERE rn BETWEEN #{start} AND #{end}
 	</select>
 	
 	<!-- 게시글 레코드 개수 -->
