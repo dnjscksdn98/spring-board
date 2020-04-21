@@ -55,7 +55,7 @@
   <code>
   create table board_views (
     board_id number not null,
-    user_name varchar2(30) not null
+    user_id varchar2(20) not null
   );
   </code>
   </pre>
@@ -67,4 +67,5 @@
 - 게시글 업데이트
 - 게시글 삭제
 - 게시글 검색
+- 게시글 조회수 증가
 - 로그인, 로그아웃, 회원가입
