@@ -19,7 +19,8 @@
 				})
 				
 				$("#btnList").click(function() {
-					location.href = "{path}/board/list.do?curPage=${curPage}&searchOption=${searchOption}&keyword=${keyword}";
+					// 현재 페이지, 검색 옵션, 검색 키워드를 유지한채 목록으로 이동
+					location.href = "${path}/board/list.do?curPage=${param.curPage}&searchOption=${param.searchOption}&keyword=${param.keyword}";
 				})
 			})
 		</script>

@@ -68,14 +68,14 @@
 						<a href="javascript:list('1')">[처음]</a>
 					</c:if>
 					<c:if test="${map.boardPager.getCurBlock() > 1}">
-						<a href="javascript:list('map.boardPager.getPrevPage()')">[이전]</a>
+						<a href="javascript:list('${map.boardPager.getPrevPage()}')">[이전]</a>
 					</c:if>
 					
 					<c:forEach var="num" begin="${map.boardPager.getBlockBegin()}" end="${map.boardPager.getBlockEnd()}">
 						<!-- 현재 페이지면 하이퍼링크 제거 -->
 						<c:choose>
 							<c:when test="${num == map.boardPager.getCurPage()}">
-								<span style="color: blue;">${num}</span>&nbsp;
+								<span style="color: red;">${num}</span>&nbsp;
 							</c:when>
 							<c:otherwise>
 								<a href="javascript:list('${num}')">${num}</a>&nbsp;
@@ -84,10 +84,10 @@
 					</c:forEach>
 					
 					<c:if test="${map.boardPager.getCurBlock() <= map.boardPager.getTotBlock()}">
-						<a href="javascript:list('map.boardPager.getNextPage()')">[다음]</a>
+						<a href="javascript:list('${map.boardPager.getNextPage()}')">[다음]</a>
 					</c:if>
-					<c:if test="${map.boardPager.getCurPage() <= map.boardPager.getTotPage()}">
-						<a href="javascript:list('map.boardPager.getTotPage()')">[끝]</a>
+					<c:if test="${map.boardPager.getCurPage() < map.boardPager.getTotPage()}">
+						<a href="javascript:list('${map.boardPager.getTotPage()}')">[끝]</a>
 					</c:if>
 				</td>
 			</tr>

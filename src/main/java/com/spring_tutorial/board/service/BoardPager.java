@@ -1,8 +1,8 @@
 package com.spring_tutorial.board.service;
 
 public class BoardPager {
-	public static final int PAGE_SCALE = 10;  // 페이지당 게시물 수
-	public static final int BLOCK_SCALE = 10;  // 블록당 페이지 수
+	public static final int PAGE_SCALE = 5;  // 페이지당 게시물 수
+	public static final int BLOCK_SCALE = 5;  // 블록당 페이지 수
 	
 	private int curPage;  // 현재 페이지
 	private int prevPage;  // 이전 페이지
@@ -19,7 +19,7 @@ public class BoardPager {
 	
 	// 레코드 개수, 현재 페이지 번호
 	public BoardPager(int count, int curPage) {
-		curBlock = 1;
+		this.curBlock = 1;
 		this.curPage = curPage;
 		setTotPage(count);
 		setPageRange();
