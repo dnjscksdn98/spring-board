@@ -73,7 +73,10 @@ public class BoardController {
 	// board detail page
 	@RequestMapping(value="detail.do", method=RequestMethod.GET)
 	public ModelAndView detail(@RequestParam int boardId, HttpSession session) throws Exception {
-		// boardService.increaseViews(boardId, session);
+		String userId = (String)session.getAttribute("userId");
+		if(userId != null) {
+			boardService.increaseViews(boardId, userId);
+		}
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("board/detail");

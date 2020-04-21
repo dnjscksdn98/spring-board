@@ -2,8 +2,6 @@ package com.spring_tutorial.board.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -48,8 +46,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public void increaseViews(int boardId, HttpSession session) throws Exception {
-		
+	public void increaseViews(int boardId, String userId) throws Exception {
+		boardDao.increaseViews(boardId, userId);
 	}
 	
 }

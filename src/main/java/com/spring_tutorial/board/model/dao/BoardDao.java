@@ -18,5 +18,5 @@ public interface BoardDao {
 	
 	public void delete(int boardId) throws Exception;
 	
-	public void increaseViews(int boardId) throws Exception;
+	public void increaseViews(int boardId, String userId) throws Exception;
 }

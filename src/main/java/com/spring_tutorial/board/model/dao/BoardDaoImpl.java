@@ -53,7 +53,15 @@ public class BoardDaoImpl implements BoardDao {
 	}
 	
 	@Override
-	public void increaseViews(int boardId) throws Exception {
+	public void increaseViews(int boardId, String userId) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("boardId", boardId);
+		map.put("userId", userId);
+		String result = sqlSession.selectOne("board.checkViews", map);
 		
+		if(result == null) {
+			sqlSession.update("board.updateViews", boardId);
+			sqlSession.insert("board.addUserToBoardViews", map);
+		}
 	}
 }

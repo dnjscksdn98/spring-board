@@ -91,5 +91,25 @@
 		DELETE FROM board
 		WHERE board_id = #{boardId}
 	</delete>
+	
+	<!-- 사용자가 게시글을 조회했는지 검사 -->
+	<select id="checkViews" resultType="String">
+		SELECT user_id
+		FROM board_views
+		WHERE board_id = #{boardId} AND user_id = #{userId}
+	</select>
+	
+	<!-- 게시글 조회수 증가 -->
+	<update id="updateViews">
+		UPDATE board
+		SET views = views + 1
+		WHERE board_id = #{boardId}
+	</update>
+	
+	<!-- 게시글 조회 테이블에 사용자 추가 -->
+	<insert id="addUserToBoardViews">
+		INSERT INTO board_views(board_id, user_id)
+		VALUES(#{boardId}, #{userId})
+	</insert>
 
 </mapper>
