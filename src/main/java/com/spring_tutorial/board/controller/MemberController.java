@@ -20,11 +20,13 @@ public class MemberController {
 	@Autowired
 	MemberServiceImpl memberService;
 	
+	// 로그인 페이지
 	@RequestMapping("login.do")
 	public String login() {
 		return "member/login";
 	}
 	
+	// 로그인
 	@RequestMapping("loginCheck.do")
 	public ModelAndView loginCheck(@ModelAttribute MemberDto dto, HttpSession session) {
 		boolean result = memberService.memberCheck(dto, session);
@@ -41,6 +43,7 @@ public class MemberController {
 		return mav;
 	}
 	
+	// 로그아웃
 	@RequestMapping("logout.do")
 	public ModelAndView logout(HttpSession session) {
 		memberService.logout(session);
@@ -49,11 +52,13 @@ public class MemberController {
 		return mav;
 	}
 	
+	// 회원가입 페이지
 	@RequestMapping("signup.do")
 	public String signup() {
 		return "member/signup";
 	}
 	
+	// 회원가입
 	@RequestMapping(value="signupCheck.do", method=RequestMethod.POST)
 	public ModelAndView signupCheck(@RequestParam String userId, @RequestParam String userPw,
 								@RequestParam String confirmPw, @RequestParam String userName, 
@@ -61,7 +66,7 @@ public class MemberController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		// password validation
+		// 비밀번호 검증
 		boolean result1 = memberService.pwCheck(userPw, confirmPw);
 		if(!result1) {
 			mav.setViewName("member/signup");
@@ -69,7 +74,7 @@ public class MemberController {
 			return mav;
 		}
 		
-		// id validation
+		// 아이디 검증
 		boolean result2 = memberService.idCheck(new MemberDto(userId, userPw));
 		if(result2) {
 			mav.setViewName("member/signup");
@@ -77,7 +82,7 @@ public class MemberController {
 			return mav;
 		}
 		
-		// signup
+		// 회원가입
 		memberService.signup(new MemberDto(userId, userPw, userName, userEmail));
 		mav.setViewName("member/login");
 		mav.addObject("msg", "signupSuccess");

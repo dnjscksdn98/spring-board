@@ -11,13 +11,15 @@
 				$("#btnUpdate").click(function() {
 					location.href = "${path}/board/update_view.do?boardId=${dto.getBoardId()}";
 				})
-			})
-		
-			$(document).ready(function() {
+				
 				$("#btnDelete").click(function() {
 					if(confirm("정말로 삭제하시겠습니까?")) {
 						location.href = "${path}/board/delete.do?boardId=${dto.getBoardId()}";
 					}
+				})
+				
+				$("#btnList").click(function() {
+					location.href = "{path}/board/list.do?curPage=${curPage}&searchOption=${searchOption}&keyword=${keyword}";
 				})
 			})
 		</script>
@@ -45,5 +47,6 @@
 			<button id="btnUpdate">수정</button>
 			<button id="btnDelete">삭제</button>
 		</c:if>
+		<button id="btnList">목록</button>
 	</body>
 </html>

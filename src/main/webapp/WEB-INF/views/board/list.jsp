@@ -12,6 +12,9 @@
 					location.href = "${path}/board/write.do";
 				});
 			});
+			function list(page) {
+				location.href = "${path}/board/list.do?curPage=" + page + "&searchOption=${map.searchOption}&keyword=${map.keyword}";
+			}
 		</script>
 	</head>
 	<body>
@@ -47,7 +50,10 @@
 			<tr>
 				<td>${row.getBoardId()}</td>
 				<td>
-					<a href="${path}/board/detail.do?boardId=${row.getBoardId()}">${row.getTitle()}</a>
+					<!-- 검색조건, 검색 키워드, 현재 페이지를 유지하기 위해 -->
+					<a href="${path}/board/detail.do?boardId=${row.getBoardId()}&curPage=${map.boardPager.getCurPage()}&searchOption=${map.searchOption}&keyword=${map.keyword}">
+						${row.getTitle()}
+					</a>
 				</td>
 				<td>${row.getWriter()}</td>
 				<td>
@@ -56,6 +62,35 @@
 				<td>${row.getViews()}</td>
 			</tr>
 			</c:forEach>
+			<tr>
+				<td colspan="5">
+					<c:if test="${map.boardPager.getCurPage() > 1}">
+						<a href="javascript:list('1')">[처음]</a>
+					</c:if>
+					<c:if test="${map.boardPager.getCurBlock() > 1}">
+						<a href="javascript:list('map.boardPager.getPrevPage()')">[이전]</a>
+					</c:if>
+					
+					<c:forEach var="num" begin="${map.boardPager.getBlockBegin()}" end="${map.boardPager.getBlockEnd()}">
+						<!-- 현재 페이지면 하이퍼링크 제거 -->
+						<c:choose>
+							<c:when test="${num == map.boardPager.getCurPage()}">
+								<span style="color: blue;">${num}</span>&nbsp;
+							</c:when>
+							<c:otherwise>
+								<a href="javascript:list('${num}')">${num}</a>&nbsp;
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					
+					<c:if test="${map.boardPager.getCurBlock() <= map.boardPager.getTotBlock()}">
+						<a href="javascript:list('map.boardPager.getNextPage()')">[다음]</a>
+					</c:if>
+					<c:if test="${map.boardPager.getCurPage() <= map.boardPager.getTotPage()}">
+						<a href="javascript:list('map.boardPager.getTotPage()')">[끝]</a>
+					</c:if>
+				</td>
+			</tr>
 		</table>
 	</body>
 </html>
