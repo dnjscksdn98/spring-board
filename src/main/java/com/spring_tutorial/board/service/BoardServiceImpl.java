@@ -16,8 +16,8 @@ public class BoardServiceImpl implements BoardService {
 	BoardDaoImpl boardDao;
 	
 	@Override
-	public List<BoardDto> listAll(String searchOption, String keyword) throws Exception {
-		return boardDao.listAll(searchOption, keyword);
+	public List<BoardDto> listAll(int start, int end, String searchOption, String keyword) throws Exception {
+		return boardDao.listAll(start, end, searchOption, keyword);
 	}
 	
 	@Override
