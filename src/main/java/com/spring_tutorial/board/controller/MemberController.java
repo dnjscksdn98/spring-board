@@ -29,13 +29,15 @@ public class MemberController {
 	// 로그인
 	@RequestMapping("loginCheck.do")
 	public ModelAndView loginCheck(@ModelAttribute MemberDto dto, HttpSession session) {
-		boolean result = memberService.memberCheck(dto, session);
+		boolean result = memberService.memberCheck(dto, session);  // 회원 존재여부 체크
 		ModelAndView mav = new ModelAndView();
 		
+		// 회원이 존재 할 경우
 		if(result) {
 			mav.setViewName("main");
 			mav.addObject("msg", "loginSuccess");
 		}
+		// 존재하지 않을 경우
 		else {
 			mav.setViewName("member/login");
 			mav.addObject("msg", "loginFailure");
@@ -61,14 +63,14 @@ public class MemberController {
 	// 회원가입
 	@RequestMapping(value="signupCheck.do", method=RequestMethod.POST)
 	public ModelAndView signupCheck(@RequestParam String userId, @RequestParam String userPw,
-								@RequestParam String confirmPw, @RequestParam String userName, 
-								@RequestParam String userEmail) {
+									@RequestParam String confirmPw, @RequestParam String userName, 
+									@RequestParam String userEmail) {
 		
 		ModelAndView mav = new ModelAndView();
 		
 		// 비밀번호 검증
 		boolean result1 = memberService.pwCheck(userPw, confirmPw);
-		if(!result1) {
+		if(result1) {
 			mav.setViewName("member/signup");
 			mav.addObject("msg", "pwError");
 			return mav;

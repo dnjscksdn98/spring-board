@@ -26,20 +26,24 @@ public class BoardController {
 	BoardServiceImpl boardService;
 	
 	// 게시글 목록
+	// 검색 옵션 기본값 - 제목
+	// 검색 키워드 기본값 - 값 없음
+	// 페이지 기본값 - 1
 	@RequestMapping("list.do")
 	public ModelAndView list(@RequestParam(defaultValue="title") String searchOption,
-							@RequestParam(defaultValue="") String keyword,
-							@RequestParam(defaultValue="1") int curPage) throws Exception {
+							 @RequestParam(defaultValue="") String keyword,
+							 @RequestParam(defaultValue="1") int curPage) throws Exception {
 		
 		// 게시글 수 계산
 		int count = boardService.countArticle(searchOption, keyword);
 		
 		// 페이징
+		// WHERE rn BETWEEN #{start} AND #{end}
 		BoardPager boardPager = new BoardPager(count, curPage);
 		int start = boardPager.getPageBegin();
 		int end = boardPager.getPageEnd();
 		
-		// 조회
+		// 게시글 조회
 		List<BoardDto> list = boardService.listAll(start, end, searchOption, keyword);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -82,6 +86,18 @@ public class BoardController {
 		return "redirect:list.do";
 	}
 	
+	// 글 수정
+	@RequestMapping(value="update.do", method=RequestMethod.POST)
+	public ModelAndView update(@ModelAttribute BoardDto dto) throws Exception {
+		boardService.update(dto);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("board/detail");
+		mav.addObject("dto", boardService.detail(dto.getBoardId()));
+		
+		return mav;
+	}
+	
 	// 게시글 상세 정보 페이지
 	@RequestMapping(value="detail.do", method=RequestMethod.GET)
 	public ModelAndView detail(@RequestParam int boardId, HttpSession session) throws Exception {
@@ -93,18 +109,6 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("board/detail");
 		mav.addObject("dto", boardService.detail(boardId));
-		
-		return mav;
-	}
-	
-	// 글 수정
-	@RequestMapping(value="update.do", method=RequestMethod.POST)
-	public ModelAndView update(@ModelAttribute BoardDto dto) throws Exception {
-		boardService.update(dto);
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("board/detail");
-		mav.addObject("dto", boardService.detail(dto.getBoardId()));
 		
 		return mav;
 	}
