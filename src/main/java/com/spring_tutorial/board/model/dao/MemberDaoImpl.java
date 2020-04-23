@@ -13,9 +13,8 @@ public class MemberDaoImpl implements MemberDao {
 	SqlSession sqlSession;
 	
 	@Override
-	public boolean memberCheck(MemberDto dto) {
-		String name = sqlSession.selectOne("member.memberCheck", dto);
-		return (name == null) ? false : true;
+	public String memberCheck(MemberDto dto) {
+		return sqlSession.selectOne("member.memberCheck", dto);
 	}
 	
 	@Override

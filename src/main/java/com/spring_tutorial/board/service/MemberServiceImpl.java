@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.spring_tutorial.board.model.dao.MemberDaoImpl;
 import com.spring_tutorial.board.model.dto.MemberDto;
 
+import com.spring_tutorial.board.error.MemberNotFoundException;
+
 @Service
 public class MemberServiceImpl implements MemberService {
 
@@ -15,18 +17,13 @@ public class MemberServiceImpl implements MemberService {
 	MemberDaoImpl memberDao;
 	
 	// 로그인
-	// 회원이 존재하는지 체크하고 존재하면 아이디와 이름을 세션에 저장
 	@Override
-	public boolean memberCheck(MemberDto dto, HttpSession session) {
-		boolean result = memberDao.memberCheck(dto);
+	public void memberCheck(MemberDto dto, HttpSession session) {
+		String name = memberDao.memberCheck(dto);
+		if(name == null) throw new MemberNotFoundException("존재하지 않는 회원이다");
 		
-		if(result) {
-			MemberDto dto2 = viewMember(dto);
-			
-			session.setAttribute("userId", dto2.getUserId());
-			session.setAttribute("userName", dto2.getUserName());
-		}
-		return result;
+		session.setAttribute("userId", dto.getUserId());
+		session.setAttribute("userName", name);
 	}
 	
 	// 회원 정보 추출

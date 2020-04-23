@@ -6,7 +6,7 @@ import com.spring_tutorial.board.model.dto.MemberDto;
 
 public interface MemberService {
 	
-	public boolean memberCheck(MemberDto dto, HttpSession session);
+	public void memberCheck(MemberDto dto, HttpSession session);
 	
 	public MemberDto viewMember(MemberDto dto);
 	

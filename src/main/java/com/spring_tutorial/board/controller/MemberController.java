@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring_tutorial.board.model.dto.MemberDto;
 import com.spring_tutorial.board.service.MemberServiceImpl;
 
+
 @Controller
 @RequestMapping("/member/*")
 public class MemberController {
@@ -29,19 +30,10 @@ public class MemberController {
 	// 로그인
 	@RequestMapping("loginCheck.do")
 	public ModelAndView loginCheck(@ModelAttribute MemberDto dto, HttpSession session) {
-		boolean result = memberService.memberCheck(dto, session);  // 회원 존재여부 체크
+		memberService.memberCheck(dto, session);
 		ModelAndView mav = new ModelAndView();
-		
-		// 회원이 존재 할 경우
-		if(result) {
-			mav.setViewName("main");
-			mav.addObject("msg", "loginSuccess");
-		}
-		// 존재하지 않을 경우
-		else {
-			mav.setViewName("member/login");
-			mav.addObject("msg", "loginFailure");
-		}
+		mav.setViewName("main");
+		mav.addObject("msg", "loginSuccess");
 		return mav;
 	}
 	
