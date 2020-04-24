@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.spring_tutorial.board.model.dao.MemberDaoImpl;
 import com.spring_tutorial.board.model.dto.MemberDto;
@@ -18,6 +19,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	MemberDaoImpl memberDao;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	// 로그인
 	@Override
@@ -50,10 +54,11 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 비밀번호 검증
 	@Override
-	public void pwCheck(String userPw, String confirmPw) {
+	public String pwCheck(String userPw, String confirmPw) {
 		if(!userPw.contentEquals(confirmPw)) {
 			throw new PasswordDismatchException("비밀번호 불일치");
 		}
+		return passwordEncoder.encode(userPw);
 	}
 	
 	// 아이디 검증

@@ -14,7 +14,7 @@ public interface MemberService {
 	
 	public void signup(MemberDto dto);
 	
-	public void pwCheck(String userPw, String confirmPw);
+	public String pwCheck(String userPw, String confirmPw);
 	
 	public void idCheck(MemberDto dto);
 }

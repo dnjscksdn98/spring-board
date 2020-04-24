@@ -61,9 +61,10 @@ public class MemberController {
 									@RequestParam String confirmPw, @RequestParam String userName, 
 									@RequestParam String userEmail) {
 		
-		memberService.pwCheck(userPw, confirmPw);
+		String encPw = memberService.pwCheck(userPw, confirmPw);
+		System.out.println(encPw);
 		try {
-			memberService.signup(new MemberDto(userId, userPw, userName, userEmail));			
+			memberService.signup(new MemberDto(userId, encPw, userName, userEmail));			
 		
 		} catch(DuplicateKeyException e) {
 			throw new IdAlreadyExistsException("아이디가 이미 존재합니다");
