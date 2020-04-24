@@ -30,6 +30,6 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public boolean idCheck(MemberDto dto) {
 		String name = sqlSession.selectOne("member.memberCheck", dto);
-		return (name == null) ? false : true;
+		return (name == null) ? true : false;
 	}
 }

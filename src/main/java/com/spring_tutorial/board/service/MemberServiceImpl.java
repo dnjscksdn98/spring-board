@@ -9,6 +9,9 @@ import com.spring_tutorial.board.model.dao.MemberDaoImpl;
 import com.spring_tutorial.board.model.dto.MemberDto;
 
 import com.spring_tutorial.board.error.MemberNotFoundException;
+import com.spring_tutorial.board.error.PasswordDismatchException;
+import com.spring_tutorial.board.error.IdAlreadyExistsException;
+
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -20,8 +23,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void memberCheck(MemberDto dto, HttpSession session) {
 		String name = memberDao.memberCheck(dto);
-		if(name == null) throw new MemberNotFoundException("존재하지 않는 회원이다");
-		
+		if(name == null) {
+			throw new MemberNotFoundException("존재하지 않는 회원입니다");
+		}
 		session.setAttribute("userId", dto.getUserId());
 		session.setAttribute("userName", name);
 	}
@@ -46,13 +50,19 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 비밀번호 검증
 	@Override
-	public boolean pwCheck(String userPw, String confirmPw) {
-		return (userPw.contentEquals(confirmPw)) ? false : true;
+	public void pwCheck(String userPw, String confirmPw) {
+		if(!userPw.contentEquals(confirmPw)) {
+			throw new PasswordDismatchException("비밀번호 불일치");
+		}
 	}
 	
 	// 아이디 검증
 	@Override
-	public boolean idCheck(MemberDto dto) {
-		return memberDao.idCheck(dto);
+	public void idCheck(MemberDto dto) {
+		boolean result = memberDao.idCheck(dto);
+		if(!result) { 
+			throw new IdAlreadyExistsException("아이디가 이미 존재합니다");
+		}
 	}
+	
 }

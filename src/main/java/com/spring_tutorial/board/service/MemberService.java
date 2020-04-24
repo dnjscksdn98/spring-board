@@ -14,7 +14,7 @@ public interface MemberService {
 	
 	public void signup(MemberDto dto);
 	
-	public boolean pwCheck(String userPw, String confirmPw);
+	public void pwCheck(String userPw, String confirmPw);
 	
-	public boolean idCheck(MemberDto dto);
+	public void idCheck(MemberDto dto);
 }

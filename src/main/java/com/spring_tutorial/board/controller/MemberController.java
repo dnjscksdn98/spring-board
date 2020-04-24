@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring_tutorial.board.model.dto.MemberDto;
 import com.spring_tutorial.board.service.MemberServiceImpl;
+
+import com.spring_tutorial.board.error.IdAlreadyExistsException;
 
 
 @Controller
@@ -58,26 +61,14 @@ public class MemberController {
 									@RequestParam String confirmPw, @RequestParam String userName, 
 									@RequestParam String userEmail) {
 		
+		memberService.pwCheck(userPw, confirmPw);  // 비밀번호 검증
+		try {
+			memberService.signup(new MemberDto(userId, userPw, userName, userEmail));			
+		
+		} catch(DuplicateKeyException e) {
+			throw new IdAlreadyExistsException("아이디가 이미 존재합니다");
+		}
 		ModelAndView mav = new ModelAndView();
-		
-		// 비밀번호 검증
-		boolean result1 = memberService.pwCheck(userPw, confirmPw);
-		if(result1) {
-			mav.setViewName("member/signup");
-			mav.addObject("msg", "pwError");
-			return mav;
-		}
-		
-		// 아이디 검증
-		boolean result2 = memberService.idCheck(new MemberDto(userId, userPw));
-		if(result2) {
-			mav.setViewName("member/signup");
-			mav.addObject("msg", "idError");
-			return mav;
-		}
-		
-		// 회원가입
-		memberService.signup(new MemberDto(userId, userPw, userName, userEmail));
 		mav.setViewName("member/login");
 		mav.addObject("msg", "signupSuccess");
 		
