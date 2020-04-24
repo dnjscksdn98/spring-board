@@ -13,7 +13,9 @@
 - 비즈니스 로직들은 인터페이스를 활용하여 유지보수와 효율성을 높임
 - DAO와 DTO를 활용하여 DB관련 연동 작업 수행
 - HttpSession을 통해 사용자에 대한 정보를 저장
+- Pagination 클래스를 생성하여 게시물 페이징
 - @ControllerAdvice, @ExceptionHandler를 활용한 예외처리
+- Spring-Security로 비밀번호 암호화
 
 ### 데이터베이스
 
