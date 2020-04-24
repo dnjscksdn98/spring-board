@@ -61,7 +61,7 @@ public class MemberController {
 									@RequestParam String confirmPw, @RequestParam String userName, 
 									@RequestParam String userEmail) {
 		
-		memberService.pwCheck(userPw, confirmPw);  // 비밀번호 검증
+		memberService.pwCheck(userPw, confirmPw);
 		try {
 			memberService.signup(new MemberDto(userId, userPw, userName, userEmail));			
 		
