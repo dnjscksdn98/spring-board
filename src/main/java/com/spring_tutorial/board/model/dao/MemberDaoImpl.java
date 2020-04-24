@@ -13,13 +13,13 @@ public class MemberDaoImpl implements MemberDao {
 	SqlSession sqlSession;
 	
 	@Override
-	public String memberCheck(MemberDto dto) {
-		return sqlSession.selectOne("member.memberCheck", dto);
+	public String getUserName(String userId) {
+		return sqlSession.selectOne("member.getUserName", userId);
 	}
 	
 	@Override
-	public MemberDto viewMember(MemberDto dto) {
-		return sqlSession.selectOne("member.viewMember", dto);
+	public String getEncodedPassword(String userId) {
+		return sqlSession.selectOne("member.getEncodedPassword", userId);
 	}
 	
 	@Override
@@ -27,9 +27,4 @@ public class MemberDaoImpl implements MemberDao {
 		sqlSession.insert("member.signup", dto);
 	}
 	
-	@Override
-	public boolean idCheck(MemberDto dto) {
-		String name = sqlSession.selectOne("member.memberCheck", dto);
-		return (name == null) ? true : false;
-	}
 }

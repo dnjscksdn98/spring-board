@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,8 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring_tutorial.board.model.dto.MemberDto;
 import com.spring_tutorial.board.service.MemberServiceImpl;
-
-import com.spring_tutorial.board.error.IdAlreadyExistsException;
 
 
 @Controller
@@ -33,7 +30,7 @@ public class MemberController {
 	// 로그인
 	@RequestMapping("loginCheck.do")
 	public ModelAndView loginCheck(@ModelAttribute MemberDto dto, HttpSession session) {
-		memberService.memberCheck(dto, session);
+		memberService.login(dto, session);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main");
 		mav.addObject("msg", "loginSuccess");
@@ -61,18 +58,11 @@ public class MemberController {
 									@RequestParam String confirmPw, @RequestParam String userName, 
 									@RequestParam String userEmail) {
 		
-		String encPw = memberService.pwCheck(userPw, confirmPw);
-		System.out.println(encPw);
-		try {
-			memberService.signup(new MemberDto(userId, encPw, userName, userEmail));			
-		
-		} catch(DuplicateKeyException e) {
-			throw new IdAlreadyExistsException("아이디가 이미 존재합니다");
-		}
+		String encodedPw = memberService.pwConfirmCheck(userPw, confirmPw);  // 암호화된 비밀번호 반환
+		memberService.signup(new MemberDto(userId, encodedPw, userName, userEmail));
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("member/login");
 		mav.addObject("msg", "signupSuccess");
-		
 		return mav;
 	}
 }

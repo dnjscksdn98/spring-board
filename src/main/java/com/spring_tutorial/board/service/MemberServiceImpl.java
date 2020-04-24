@@ -3,6 +3,7 @@ package com.spring_tutorial.board.service;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -25,19 +26,12 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 로그인
 	@Override
-	public void memberCheck(MemberDto dto, HttpSession session) {
-		String name = memberDao.memberCheck(dto);
-		if(name == null) {
-			throw new MemberNotFoundException("존재하지 않는 회원입니다");
+	public void login(MemberDto dto, HttpSession session) throws MemberNotFoundException {
+		if(pwDecodeCheck(dto)) {
+			String name = memberDao.getUserName(dto.getUserId());
+			session.setAttribute("userId", dto.getUserId());
+			session.setAttribute("userName", name);
 		}
-		session.setAttribute("userId", dto.getUserId());
-		session.setAttribute("userName", name);
-	}
-	
-	// 회원 정보 추출
-	@Override
-	public MemberDto viewMember(MemberDto dto) {
-		return memberDao.viewMember(dto);
 	}
 	
 	// 로그아웃
@@ -49,25 +43,30 @@ public class MemberServiceImpl implements MemberService {
 	// 회원 가입
 	@Override
 	public void signup(MemberDto dto) {
-		memberDao.signup(dto);
+		try {
+			memberDao.signup(dto);
+		} catch(DuplicateKeyException e) {
+			throw new IdAlreadyExistsException("아이디가 이미 존재합니다");
+		}
 	}
 	
 	// 비밀번호 검증
 	@Override
-	public String pwCheck(String userPw, String confirmPw) {
-		if(!userPw.contentEquals(confirmPw)) {
-			throw new PasswordDismatchException("비밀번호 불일치");
-		}
-		return passwordEncoder.encode(userPw);
+	public String pwConfirmCheck(String userPw, String confirmPw) {
+		if(!userPw.contentEquals(confirmPw)) throw new PasswordDismatchException("비밀번호 불일치");
+		return passwordEncoder.encode(userPw);  // 비밀번호를 암호화 후에 리턴
 	}
 	
-	// 아이디 검증
+	// 비밀번호 디코딩 비교
 	@Override
-	public void idCheck(MemberDto dto) {
-		boolean result = memberDao.idCheck(dto);
-		if(!result) { 
-			throw new IdAlreadyExistsException("아이디가 이미 존재합니다");
-		}
+	public boolean pwDecodeCheck(MemberDto dto) {
+		String rawPassword = dto.getUserPw();
+		String encodedPassword = memberDao.getEncodedPassword(dto.getUserId());
+		
+		if(encodedPassword == null) throw new MemberNotFoundException("존재하지 않는 회원입니다");
+		
+		boolean result = passwordEncoder.matches(rawPassword, encodedPassword);
+		return result;
 	}
 	
 }

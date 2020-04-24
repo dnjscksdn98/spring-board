@@ -5,22 +5,18 @@
   
 <mapper namespace="member">
 	
-	<!-- 회원이 존재하는지 검사 -->
-	<select id="memberCheck" resultType="String">
+	<!-- 해당 아이디의 이름 추출 -->
+	<select id="getUserName" resultType="String">
 		SELECT user_name AS userName
 		FROM member
-		WHERE user_id = #{userId} AND user_pw = #{userPw}
+		WHERE user_id = #{userId}
 	</select>
 	
 	<!-- 해당 아이디와 비번을 가진 회원 정보 추출 -->
-	<select id="viewMember" resultType="com.spring_tutorial.board.model.dto.MemberDto">
-		SELECT 
-			user_id AS userId,
-			user_name AS userName,
-			user_email AS userEmail,
-			user_regdate AS userRegDate
+	<select id="getEncodedPassword" resultType="String">
+		SELECT user_pw AS userPw
 		FROM member
-		WHERE user_id = #{userId} AND user_pw = #{userPw}
+		WHERE user_id = #{userId}
 	</select>
 	
 	<!-- 회원가입 -->
