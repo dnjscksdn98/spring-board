@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring_tutorial.board.error.MemberNotFoundException;
 import com.spring_tutorial.board.error.ConfirmPwDismatchException;
 import com.spring_tutorial.board.error.IdAlreadyExistsException;
+import com.spring_tutorial.board.error.InvalidPasswordException;
 
 
 @ControllerAdvice
@@ -41,6 +42,15 @@ public class GlobalControllerAdvice {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("member/signup");
 		mav.addObject("msg", "idError");
+		return mav;
+	}
+	
+	@ExceptionHandler(InvalidPasswordException.class)
+	public ModelAndView handleInvalidPasswordException(InvalidPasswordException e) {
+		logger.error(e.getMessage());
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("member/login");
+		mav.addObject("msg", "loginFailure");
 		return mav;
 	}
 }

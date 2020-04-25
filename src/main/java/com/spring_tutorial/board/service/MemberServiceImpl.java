@@ -13,6 +13,7 @@ import com.spring_tutorial.board.model.dto.MemberDto;
 import com.spring_tutorial.board.error.MemberNotFoundException;
 import com.spring_tutorial.board.error.ConfirmPwDismatchException;
 import com.spring_tutorial.board.error.IdAlreadyExistsException;
+import com.spring_tutorial.board.error.InvalidPasswordException;
 
 
 @Service
@@ -25,7 +26,8 @@ public class MemberServiceImpl implements MemberService {
 	PasswordEncoder passwordEncoder;
 	
 	@Override
-	public void login(MemberDto dto, HttpSession session) throws MemberNotFoundException {
+	public void login(MemberDto dto, HttpSession session) 
+			throws MemberNotFoundException, InvalidPasswordException {
 		if(pwDecodeCheck(dto)) {
 			String name = memberDao.getUserName(dto.getUserId());
 			session.setAttribute("userId", dto.getUserId());
@@ -60,6 +62,7 @@ public class MemberServiceImpl implements MemberService {
 		if(encodedPassword == null) throw new MemberNotFoundException("존재하지 않는 회원입니다");
 		
 		boolean result = passwordEncoder.matches(rawPassword, encodedPassword);
+		if(!result) throw new InvalidPasswordException("비밀번호가 틀렸습니다");
 		return result;
 	}
 	
