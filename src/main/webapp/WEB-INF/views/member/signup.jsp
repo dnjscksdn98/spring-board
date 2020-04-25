@@ -40,7 +40,7 @@
 						$("#userEmail").focus();
 						return;
 					}
-					document.signup_form.action = "${path}/member/signupCheck.do";
+					document.signup_form.action = "${path}/member/signup.do";
 					document.signup_form.submit();
 				})
 			})

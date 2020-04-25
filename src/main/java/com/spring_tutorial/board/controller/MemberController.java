@@ -21,13 +21,13 @@ public class MemberController {
 	@Autowired
 	MemberServiceImpl memberService;
 	
-	@RequestMapping("login.do")
-	public String login() {
+	@RequestMapping("login_view.do")
+	public String loginView() {
 		return "member/login";
 	}
 	
-	@RequestMapping("loginCheck.do")
-	public ModelAndView loginCheck(@ModelAttribute MemberDto dto, HttpSession session) {
+	@RequestMapping("login.do")
+	public ModelAndView login(@ModelAttribute MemberDto dto, HttpSession session) {
 		memberService.login(dto, session);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("main");
@@ -43,15 +43,15 @@ public class MemberController {
 		return mav;
 	}
 	
-	@RequestMapping("signup.do")
-	public String signup() {
+	@RequestMapping("signup_view.do")
+	public String signupView() {
 		return "member/signup";
 	}
 	
-	@RequestMapping(value="signupCheck.do", method=RequestMethod.POST)
-	public ModelAndView signupCheck(@RequestParam String userId, @RequestParam String userPw,
-									@RequestParam String confirmPw, @RequestParam String userName, 
-									@RequestParam String userEmail) {
+	@RequestMapping(value="signup.do", method=RequestMethod.POST)
+	public ModelAndView signup(@RequestParam String userId, @RequestParam String userPw,
+							   @RequestParam String confirmPw, @RequestParam String userName, 
+							   @RequestParam String userEmail) {
 		
 		String encodedPw = memberService.pwConfirmCheck(userPw, confirmPw);
 		memberService.signup(new MemberDto(userId, encodedPw, userName, userEmail));

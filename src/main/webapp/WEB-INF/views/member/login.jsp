@@ -22,7 +22,7 @@
 						$("#userPw").focus();
 						return;
 					}
-					document.login_form.action = "${path}/member/loginCheck.do";
+					document.login_form.action = "${path}/member/login.do";
 					document.login_form.submit();
 				})
 			})
