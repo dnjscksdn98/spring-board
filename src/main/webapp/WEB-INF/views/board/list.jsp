@@ -9,7 +9,7 @@
 		<script>
 			$(document).ready(function() {
 				$("#btnWrite").click(function() {
-					location.href = "${path}/board/write.do";
+					location.href = "${path}/board/write_view.do";
 				});
 			});
 			function list(page) {

@@ -10,7 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring_tutorial.board.error.MemberNotFoundException;
 import com.spring_tutorial.board.error.ConfirmPwDismatchException;
 import com.spring_tutorial.board.error.IdAlreadyExistsException;
+import com.spring_tutorial.board.error.InvalidMemberResourceException;
 import com.spring_tutorial.board.error.InvalidPasswordException;
+import com.spring_tutorial.board.error.AuthorizationFailedException;
 
 
 @ControllerAdvice
@@ -51,6 +53,23 @@ public class GlobalControllerAdvice {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("member/login");
 		mav.addObject("msg", "loginFailure");
+		return mav;
+	}
+	
+	@ExceptionHandler(AuthorizationFailedException.class)
+	public ModelAndView handleAuthorizationFailedException(AuthorizationFailedException e) {
+		logger.info(e.getMessage());
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("member/login");
+		return mav;
+	}
+	
+	@ExceptionHandler(InvalidMemberResourceException.class)
+	public ModelAndView handlerInvalidMemberResourceException(InvalidMemberResourceException e) {
+		logger.info(e.getMessage());
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error/invalid_member");
+		mav.addObject("msg", e.getMessage());
 		return mav;
 	}
 }

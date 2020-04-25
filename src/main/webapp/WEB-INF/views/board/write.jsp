@@ -32,7 +32,7 @@
 		<%@ include file="../include/nav.jsp" %>
 		<h2>게시글 작성</h2>
 		
-		<form name="write_form" method="post" action="${path}/board/insert.do">
+		<form name="write_form" method="post" action="${path}/board/write.do">
 			<div>
 				제목
 				<input name="title" id="title" size="100" placeholder="제목을 입력하십시오" />

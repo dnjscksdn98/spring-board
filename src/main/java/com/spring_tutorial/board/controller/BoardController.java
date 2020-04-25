@@ -18,6 +18,10 @@ import com.spring_tutorial.board.model.dto.BoardDto;
 import com.spring_tutorial.board.service.BoardPager;
 import com.spring_tutorial.board.service.BoardServiceImpl;
 
+import com.spring_tutorial.board.error.AuthorizationFailedException;
+import com.spring_tutorial.board.error.InvalidMemberResourceException;
+
+
 @Controller
 @RequestMapping("/board/*")
 public class BoardController {
@@ -25,25 +29,17 @@ public class BoardController {
 	@Autowired
 	BoardServiceImpl boardService;
 	
-	// 게시글 목록
-	// 검색 옵션 기본값 - 제목
-	// 검색 키워드 기본값 - 값 없음
-	// 페이지 기본값 - 1
 	@RequestMapping("list.do")
 	public ModelAndView list(@RequestParam(defaultValue="title") String searchOption,
 							 @RequestParam(defaultValue="") String keyword,
 							 @RequestParam(defaultValue="1") int curPage) throws Exception {
 		
-		// 게시글 수 계산
 		int count = boardService.countArticle(searchOption, keyword);
 		
-		// 페이징
-		// WHERE rn BETWEEN #{start} AND #{end}
 		BoardPager boardPager = new BoardPager(count, curPage);
 		int start = boardPager.getPageBegin();
 		int end = boardPager.getPageEnd();
 		
-		// 게시글 조회
 		List<BoardDto> list = boardService.listAll(start, end, searchOption, keyword);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -60,33 +56,33 @@ public class BoardController {
 		return mav;
 	}
 	
-	// 글쓰기 페이지
-	@RequestMapping(value="write.do", method=RequestMethod.GET)
-	public String write() {
+	@RequestMapping(value="write_view.do", method=RequestMethod.GET)
+	public String writeView(HttpSession session) {
+		if(session.getAttribute("userId") == null) throw new AuthorizationFailedException("권한이 없는 회원입니다");
 		return "board/write";
 	}
 	
-	// 글 수정 페이지
 	@RequestMapping(value="update_view.do", method=RequestMethod.GET)
-	public ModelAndView updateView(@RequestParam int boardId) throws Exception {
+	public ModelAndView updateView(@RequestParam int boardId, HttpSession session) throws Exception {
+		BoardDto dto = boardService.detail(boardId);
+		if(!dto.getWriter().equals((String)session.getAttribute("userId"))) {
+			throw new InvalidMemberResourceException("접근 불가능한 리소스입니다");
+		}
 		ModelAndView mav = new ModelAndView();
-		
 		mav.setViewName("board/update");
-		mav.addObject("dto", boardService.detail(boardId));
+		mav.addObject("dto", dto);
 		
 		return mav;
 	}
 	
-	// 글쓰기
-	@RequestMapping(value="insert.do", method=RequestMethod.POST)
-	public String create(@ModelAttribute BoardDto dto, HttpSession session) throws Exception {
+	@RequestMapping(value="write.do", method=RequestMethod.POST)
+	public String write(@ModelAttribute BoardDto dto, HttpSession session) throws Exception {
 		String writer = (String)session.getAttribute("userId");
 		dto.setWriter(writer);
 		boardService.create(dto);
 		return "redirect:list.do";
 	}
 	
-	// 글 수정
 	@RequestMapping(value="update.do", method=RequestMethod.POST)
 	public ModelAndView update(@ModelAttribute BoardDto dto) throws Exception {
 		boardService.update(dto);
@@ -98,7 +94,6 @@ public class BoardController {
 		return mav;
 	}
 	
-	// 게시글 상세 정보 페이지
 	@RequestMapping(value="detail.do", method=RequestMethod.GET)
 	public ModelAndView detail(@RequestParam int boardId, HttpSession session) throws Exception {
 		String userId = (String)session.getAttribute("userId");
@@ -113,9 +108,12 @@ public class BoardController {
 		return mav;
 	}
 	
-	// 글 삭제
 	@RequestMapping(value="delete.do")
-	public String delete(@RequestParam int boardId) throws Exception {
+	public String delete(@RequestParam int boardId, HttpSession session) throws Exception {
+		BoardDto dto = boardService.detail(boardId);
+		if(!dto.getWriter().equals((String)session.getAttribute("userId"))) {
+			throw new InvalidMemberResourceException("접근 불가능한 리소스입니다");
+		}
 		boardService.delete(boardId);
 		return "redirect:list.do";
 	}
