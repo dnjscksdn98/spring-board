@@ -5,21 +5,18 @@
   
 <mapper namespace="member">
 	
-	<!-- 해당 아이디의 이름 추출 -->
 	<select id="getUserName" resultType="String">
 		SELECT user_name AS userName
 		FROM member
 		WHERE user_id = #{userId}
 	</select>
 	
-	<!-- 해당 아이디와 비번을 가진 회원 정보 추출 -->
 	<select id="getEncodedPassword" resultType="String">
 		SELECT user_pw AS userPw
 		FROM member
 		WHERE user_id = #{userId}
 	</select>
 	
-	<!-- 회원가입 -->
 	<insert id="signup">
 		INSERT INTO member(user_id, user_pw, user_name, user_email)
 		VALUES(#{userId}, #{userPw}, #{userName}, #{userEmail})

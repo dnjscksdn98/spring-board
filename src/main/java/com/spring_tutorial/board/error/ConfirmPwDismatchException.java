@@ -1,11 +1,11 @@
 package com.spring_tutorial.board.error;
 
-public class PasswordDismatchException extends RuntimeException {
+public class ConfirmPwDismatchException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	private String message;
 	
-	public PasswordDismatchException(String message) {
+	public ConfirmPwDismatchException(String message) {
 		this.message = message;
 	}
 

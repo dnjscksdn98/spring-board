@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring_tutorial.board.error.MemberNotFoundException;
-import com.spring_tutorial.board.error.PasswordDismatchException;
+import com.spring_tutorial.board.error.ConfirmPwDismatchException;
 import com.spring_tutorial.board.error.IdAlreadyExistsException;
 
 
@@ -26,8 +26,8 @@ public class GlobalControllerAdvice {
 		return mav;
 	}
 	
-	@ExceptionHandler(PasswordDismatchException.class)
-	public ModelAndView handlePasswordDismatchException(PasswordDismatchException e) {
+	@ExceptionHandler(ConfirmPwDismatchException.class)
+	public ModelAndView handlePasswordDismatchException(ConfirmPwDismatchException e) {
 		logger.error(e.getMessage());
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("member/signup");

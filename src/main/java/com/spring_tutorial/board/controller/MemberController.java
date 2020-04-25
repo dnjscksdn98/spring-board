@@ -21,13 +21,11 @@ public class MemberController {
 	@Autowired
 	MemberServiceImpl memberService;
 	
-	// 로그인 페이지
 	@RequestMapping("login.do")
 	public String login() {
 		return "member/login";
 	}
 	
-	// 로그인
 	@RequestMapping("loginCheck.do")
 	public ModelAndView loginCheck(@ModelAttribute MemberDto dto, HttpSession session) {
 		memberService.login(dto, session);
@@ -37,7 +35,6 @@ public class MemberController {
 		return mav;
 	}
 	
-	// 로그아웃
 	@RequestMapping("logout.do")
 	public ModelAndView logout(HttpSession session) {
 		memberService.logout(session);
@@ -46,19 +43,17 @@ public class MemberController {
 		return mav;
 	}
 	
-	// 회원가입 페이지
 	@RequestMapping("signup.do")
 	public String signup() {
 		return "member/signup";
 	}
 	
-	// 회원가입
 	@RequestMapping(value="signupCheck.do", method=RequestMethod.POST)
 	public ModelAndView signupCheck(@RequestParam String userId, @RequestParam String userPw,
 									@RequestParam String confirmPw, @RequestParam String userName, 
 									@RequestParam String userEmail) {
 		
-		String encodedPw = memberService.pwConfirmCheck(userPw, confirmPw);  // 암호화된 비밀번호 반환
+		String encodedPw = memberService.pwConfirmCheck(userPw, confirmPw);
 		memberService.signup(new MemberDto(userId, encodedPw, userName, userEmail));
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("member/login");
